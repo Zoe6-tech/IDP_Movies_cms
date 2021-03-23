@@ -1,5 +1,5 @@
 export default {
-    name: "MovieThumbnails",
+    name: "TheMovieThumb",
 
     props: ['movie'],
 
