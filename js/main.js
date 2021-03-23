@@ -1,26 +1,33 @@
-import MovieThumbnails from './components/MovieThumbnails.js';
+import MovieThumb from './components/MovieThumbnails.js';
 
 (() => {
     const myVM = new Vue({
         data: {
-            movies: []
+            movies: [],
+            filteredMovies:[]
         },
 
         created: function () {
             fetch('./index.php')
                 .then(res => res.json())
-                .then(data => this.movies = data)
+                .then(data => this.movies = this.filteredMovies = data)
                 .catch(err => console.log(err));
-
-            console.log("Hello!");
         },
 
         methods: {
+               filterMovies(genre){
+                   if(genre == 'all') {
+                       this.filteredMovies = this.movies;
+                       return;
+                    }
 
+                   this.filteredMovies = this.movies.filter(movie => movie.genre_name.toLowerCase().includes(genre));
+                // debugger;
+               }
         },
 
         components: {
-            moviethumb: MovieThumbnails
+            moviethumb: MovieThumb
         }
     }).$mount("#app");
 })();
